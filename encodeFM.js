@@ -6,6 +6,11 @@ export default function init() {
 //To allow the use of the translate function, add as a property to the window
 window.translate = translate
 
+function translate() {
+    const ta = document.getElementById('input')
+    encodeFM(ta.value)
+}
+
 function encodeFM( object ) {
     let obj = '';
     if( getVariableType(object) === "String"){
@@ -15,13 +20,6 @@ function encodeFM( object ) {
     }
     const result = jsonEncodeFM( obj );
     document.getElementById("output").value = result;
-}
-
-function translate() {
-
-    const ta = document.getElementById('input')
-    encodeFM(ta.value)
-
 }
 
 
