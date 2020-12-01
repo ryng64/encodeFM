@@ -1,0 +1,4 @@
+﻿Timestamp	Filename	Error	Message
+2020-11-30 20:50:35.602 -0800	encodeFMJSON.fmp12	0	*** Started consistency check of improperly closed file, total of 154 block(s) to check
+2020-11-30 20:50:35.604 -0800	encodeFMJSON.fmp12	0	Reset maximum block sequence number to 5629
+2020-11-30 20:50:35.606 -0800	encodeFMJSON.fmp12	0	*** Completed consistency check, checked 154 block(s)
