@@ -1,0 +1,35 @@
+{
+  "name": "json-fm-parser",
+  "version": "1.0.0",
+  "description": "converts JSON into the FileMaker JSONSetElement notation",
+  "main": "main.js",
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/ryng64/json-fm-parser.git"
+  },
+  "keywords": [
+    "json",
+    "FileMaker",
+    "JSONSetElement"
+  ],
+  "author": "Ryan Gold",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/ryng64/json-fm-parser/issues"
+  },
+  "homepage": "https://gitlab.com/ryng64/json-fm-parser#readme",
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-inliner": "^1.0.14"
+  },
+  "dependencies": {
+    "bootstrap": "^4.5.3",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1"
+  }
+}

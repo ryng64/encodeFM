@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">JSON:</span>
+                    </div>
+                    <textarea style="height: 640px;" id="input" class="form-control" aria-label="With textarea"></textarea>
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Expression:</span>
+                    </div>
+                    <textarea style="height: 640px;" id="output" class="form-control" aria-label="With textarea"></textarea>
+                </div>
+            </div>    
+        </div>
+        <div class="row">
+            <div class="col">
+                <button id="translate" type="button" class="btn btn-outline-primary">Translate</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-outline-primary">Copy</button>
+            </div>
+        </div>
+       
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
