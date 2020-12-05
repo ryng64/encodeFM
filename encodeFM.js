@@ -1,3 +1,4 @@
+import {errorMessage, clearErrorMessage} from './errorMessage'
 export default function init() {
     document.getElementById('translate').onclick = () => {translate()}
 }
@@ -12,13 +13,23 @@ function translate() {
 }
 
 function encodeFM( object ) {
+    if(object == '') return
+
+    console.log(object)
     let obj = '';
     if( getVariableType(object) === "String"){
-        obj = JSON.parse(object)
+        try {
+            obj = JSON.parse(object);
+        } catch(e) {
+            //Invalid Syntax
+            return errorMessage()
+        }
+        // obj = JSON.parse(object)
     } else{
         obj = object
     }
     const result = jsonEncodeFM( obj );
+    clearErrorMessage()
     document.getElementById("output").value = result;
 }
 
@@ -41,7 +52,8 @@ function jsonEncodeFM( object, tablevel = 0 ){
             if( valType === "Object" || valType === "Array") {
                 block = `[ "${k}" ; ${ jsonEncodeFM(object[k], tablevel + 1) }; JSON${valType}]`
             } else {
-                block = `[ "${k}" ; "${val}"; JSON${valType === "Unknown" ? "String" : valType }]`
+                const blockVal = valType === "Number" ? val : `"${val}"`
+                block = `[ "${k}" ; ${blockVal}; JSON${valType === "Unknown" ? "String" : valType }]`
             }
             return block
         }).join(`;\r${tabify(tablevel + 1)}`)
@@ -80,6 +92,9 @@ function getVariableType( object ) {
     }
     if (object.constructor === objectConstructor) {
         return "Object";
+    }
+    if(typeof object === "number"){
+        return "Number"
     }
     {
         return "Unknown";

@@ -2,3 +2,6 @@
 2020-11-30 20:50:35.602 -0800	encodeFMJSON.fmp12	0	*** Started consistency check of improperly closed file, total of 154 block(s) to check
 2020-11-30 20:50:35.604 -0800	encodeFMJSON.fmp12	0	Reset maximum block sequence number to 5629
 2020-11-30 20:50:35.606 -0800	encodeFMJSON.fmp12	0	*** Completed consistency check, checked 154 block(s)
+2020-12-04 21:54:42.098 -0800	encodeFM.fmp12	0	*** Started consistency check of improperly closed file, total of 152 block(s) to check
+2020-12-04 21:54:42.101 -0800	encodeFM.fmp12	0	Reset maximum block sequence number to 7294
+2020-12-04 21:54:42.103 -0800	encodeFM.fmp12	0	*** Completed consistency check, checked 152 block(s)
