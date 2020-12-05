@@ -1,10 +1,14 @@
 import {errorMessage, clearErrorMessage} from './errorMessage'
 export default function init() {
+    //Translate button
     document.getElementById('translate').onclick = () => {translate()}
+
+    //Copy button
+    document.getElementById('copy').onclick = () => {copyText()}
 }
 
 // FileMaker can only access function names and variables that are declared in the global namespace.
-//To allow the use of the translate function, add as a property to the window
+// To allow the use of the translate function, add as a property to the window
 window.translate = translate
 
 function translate() {
@@ -24,7 +28,6 @@ function encodeFM( object ) {
             //Invalid Syntax
             return errorMessage()
         }
-        // obj = JSON.parse(object)
     } else{
         obj = object
     }
@@ -35,7 +38,10 @@ function encodeFM( object ) {
 
 
 function copyText() {
-    console.log(document.getElementById("output").value)
+    const output = document.getElementById('output')
+    output.select()
+    output.setSelectionRange(0,99999) //meant for mobile according to w3 schools
+    document.execCommand('copy')
 }
 
 function jsonEncodeFM( object, tablevel = 0 ){  
