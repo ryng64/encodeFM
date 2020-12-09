@@ -4,35 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="scss/app.scss">
 </head>
 <body>
     <div class="container">
         <div id="errorMessage"></div>
         <div class="row">
             <div class="col">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">JSON:</span>
+                <div class="card">
+                    <div class="card-body">
+                        JSON
                     </div>
-                    <textarea style="height: 640px;" id="input" class="form-control" aria-label="With textarea"></textarea>
                 </div>
             </div>
             <div class="col">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Expression:</span>
-                    </div>
-                    <textarea style="height: 640px;" id="output" class="form-control" aria-label="With textarea"></textarea>
+                <div class="card">
+                    <div class="card-body">Expression</div>
                 </div>
-            </div>    
+            </div>
         </div>
         <div class="row">
             <div class="col">
-                <button id="translate" type="button" class="btn btn-outline-primary">Translate</button>
+                <div class="input-group">
+                    <textarea style="height: 640px;" id="input" class="form-control" aria-label="With textarea" placeholder="{...}"></textarea>
+                </div>
             </div>
             <div class="col">
-                <button id="copy" type="button" class="btn btn-outline-primary">Copy</button>
+                <div class="input-group">
+                    <textarea style="height: 640px;" id="output" class="form-control" aria-label="With textarea" placeholder="JSONSetElement(...)"></textarea>
+                </div>
+            </div>    
+        </div>
+        <div class="row justify-content-around" style="padding-top: .4rem;">
+            <div class="col-4">
+                <button id="translate" type="button" class="btn btn-primary btn-block">Translate</button>
+            </div>
+            <div class="col-4">
+                <button id="copy" type="button" class="btn btn-secondary btn-block">Copy</button>
             </div>
         </div>
        
