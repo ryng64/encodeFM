@@ -1,4 +1,5 @@
-import {errorMessage, clearErrorMessage} from './errorMessage'
+import {errorMessage, clearErrorMessage} from './components/errorMessage'
+
 export default function init() {
     //Translate button
     document.getElementById('translate').onclick = () => {translate()}

@@ -2,7 +2,7 @@
 A FileMaker file to convert JSON syntax into the FileMaker JSONSetElement syntax
 
 ## Development
-this project uses [Parcel](https://parceljs.org/getting_started.html) to build. I highly reccomend taking the time to 
+this project uses [Parcel](https://parceljs.org/getting_started.html) to build. I highly recomend taking the time to set up a parcel build as it saves soo much time in development.
 
 > npm install
 
