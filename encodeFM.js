@@ -59,7 +59,7 @@ function jsonEncodeFM( object, tablevel = 0 ){
             if( valType === "Object" || valType === "Array") {
                 block = `[ "${k}" ; ${ jsonEncodeFM(object[k], tablevel + 1) }; JSON${valType}]`
             } else {
-                const blockVal = valType === "Number" ? val : `"${val}"`
+                const blockVal = valType === "Number" || valType === "Boolean" ? val : `"${val}"`
                 block = `[ "${k}" ; ${blockVal}; JSON${valType === "Unknown" ? "String" : valType }]`
             }
             return block
@@ -99,6 +99,9 @@ function getVariableType( object ) {
     }
     if (object.constructor === objectConstructor) {
         return "Object";
+    }
+    if(typeof object === "boolean"){
+        return "Boolean"
     }
     if(typeof object === "number"){
         return "Number"
