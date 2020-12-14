@@ -6,7 +6,7 @@ this project uses [Parcel](https://parceljs.org/getting_started.html) to build. 
 
 > npm install
 
-> parcel index.html
+> npm run dev
 
 In a browser, go to http://localhost:1234/
 
@@ -15,7 +15,7 @@ Page will resfresh live as you update and save your code.
 ## Build
 this may build a lot of files into a `dist/` folder, however the index.html file in this folder will contain all the javascript, css and html inlined into a single file. This build file is the added to the `html` field in the Web Direct Source Layout for encodeFM.
 
-> parcel build index.html
+> npm run build
 
 - dist/index.html ( inlined html, css, javascript )
 - put contents into encodeFM::html
@@ -29,67 +29,42 @@ Paste in a any JSON formated text and Click Translate
 
 ## Samples
 
-List flat list of objects
+Data API Request Example
 
 ```
-[
-  {
-    "animal": "cat",
-    "name": "mako",
-    "color": "black and white"
-  },
-  {
-    "animal": "cat",
-    "name": "swirly",
-    "color": "tabby"
-  },
-  {
-    "animal": "dog",
-    "name": "coco",
-    "color": "chocolate"
-  }
-]
+{
+   "layouts":"Projects",
+   "limit":25,
+   "offset":5,
+   "query":[
+      {
+         "Status":"Active",
+         "AssignedTo":"Ricky"
+      }
+   ],
+   "sort":[
+      {
+         "fieldName":"Priority",
+         "sortOrder":"ascend"
+      }
+   ]
+}
 ```
-
 ---
-
-nested example
-
+Test with different Types
 ```
-[
-  {
-    "animal": "cat",
-    "name": "mako",
-    "color": "black and white",
-    "favoritePlaces": [
-        "bedroom window", 
-        "bathroom sink", 
-        "scratching post"
-    ],
-    "attributes":{
-        "eyes":"yellow",
-        "loudnes":"31dB"
-    }
-  },
-  {
-    "animal": "cat",
-    "name": "swirly",
-    "color": "tabby",
-    "favoritePlaces": [
-        "climber", 
-        "office chair", 
-        "scratching post"
-    ],
-    "attributes":{
-        "eyes":"green",
-        "loudnes":"29dB"
-    }
-  },
-  {
-    "animal": "dog",
-    "name": "coco",
-    "color": "chocolate"
-
-  }
-]
+{
+    "Null": null,
+    "True": true,
+    "False": false,
+    "Empty": "",
+    "Text": "Test Text",
+    "Number": 420,
+    "ObjectEmpty": {},
+    "Object": {"A":1, "b":"two"},
+    "ArrayNested": [1,"two",{"A":1, "b":"two"},[1,2,"three"]],
+    "ArrayStrings": ["one","two","three"],
+    "ArrayNumber": [1,2,3],
+    "ArrayEmpty": []
+}
 ```

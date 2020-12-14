@@ -11,6 +11,19 @@ export default function init() {
 // FileMaker can only access function names and variables that are declared in the global namespace.
 // To allow the use of the translate function, add as a property to the window
 window.translate = translate
+window.fmTranslate = fmTranslate
+
+
+function setInput(jsonString) {
+    const ta = document.getElementById('input')
+    ta.value = jsonString
+}
+
+function fmTranslate(str){
+    //set the input to string and translate
+    setInput(str)
+    encodeFM(str)
+}
 
 function translate() {
     const ta = document.getElementById('input')
@@ -20,7 +33,6 @@ function translate() {
 function encodeFM( object ) {
     if(object == '') return
 
-    console.log(object)
     let obj = '';
     if( getVariableType(object) === "String"){
         try {
@@ -48,6 +60,12 @@ function copyText() {
 function jsonEncodeFM( object, tablevel = 0 ){  
     //Check datatype of object passed.
     const vType = getVariableType( object ) 
+
+    //If there are no keys, or an empty object, return just the object
+    if( isEmpty(object)) {
+        return `"${JSON.stringify(object)}"`
+    }
+
     if( vType === "Object" || vType === "Array") {
         
         const brackets = vType === "Object" ? "{}" : "[]"
@@ -73,11 +91,9 @@ function jsonEncodeFM( object, tablevel = 0 ){
         starter = starter + `${subTab}${blocks}\r`
         starter = starter + `${thisTab})`
 
-        //todo: format return to be not so ugly
-
         return starter
     } else {
-        return object
+        return `"${JSON.stringify(object)}"`
     }
 }
 
@@ -86,7 +102,7 @@ function getVariableType( object ) {
     const arrayConstructor = [].constructor;
     const objectConstructor = ({}).constructor;
     if (object === null) {
-        return "null";
+        return "Null";
     }
     if (object === undefined) {
         return "undefined";
@@ -111,6 +127,24 @@ function getVariableType( object ) {
     }
 }
 
+function isEmpty(val){
+    const type = getVariableType(val)
+    // 
+    if(type === "Object"){
+        const keys = Object.keys(val)
+        return keys.length === 0
+    }
+    if(type === "Array"){
+        return val.length === 0
+    }
+    if(type === "String"){
+        return val === ""
+    }
+    if(type === "Null"){
+        return true
+    }
+    
+}
 
 function tabify(num = 0){
     let tab = ''
