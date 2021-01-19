@@ -1,7 +1,14 @@
 # encodeFM
-A FileMaker file to convert JSON syntax into the FileMaker JSONSetElement syntax
+A FileMaker tool to convert JSON syntax into the FileMaker JSONSetElement syntax
 
 ![](encodeFM.gif)
+
+## Translate
+
+Paste in a any JSON formated text and Click Translate 
+- 'Translate' button in the webviewer performs the main duties of converting the JSON ( all versions of FM that support a webviewer )
+- the Translate at the top of the application makes use of the Perform Javascript in WebViewer step ( FM 19 + )
+
 
 ## Development
 this project uses [Parcel](https://parceljs.org/getting_started.html) to build. I highly recomend taking the time to set up a parcel build as it saves soo much time in development.
@@ -21,13 +28,6 @@ this may build a lot of files into a `dist/` folder, however the index.html file
 
 - dist/index.html ( inlined html, css, javascript )
 - put contents into encodeFM::html
-
-
-## Translate
-
-Paste in a any JSON formated text and Click Translate
-- 'Translate' is a javascript function that can be called by the Perform Javascript in Web Viewer script step ( scripted button )
-
 
 ## Samples
 
