@@ -5,7 +5,7 @@ $bg-secondary: #424242;
 
 $component-active-bg: lighten(#083e6b, 15%);
 $theme-colors: (
-  "primary": $component-active-bg
+  "primary": $component-active-bg,
 );
 
 // Inputs
@@ -13,49 +13,48 @@ $input-group-addon-bg: $bg-secondary;
 $input-group-addon-color: $white;
 // $input-bg: #7c7c7c;
 $input-bg: #616161;
-$input-border-color:  $bg-secondary;
+$input-border-color: $bg-secondary;
 $input-color: $white;
 $input-border-radius: 0;
 
-$input-focus-border-color:$component-active-bg;
+$input-focus-border-color: $component-active-bg;
 $input-focus-color: $input-color;
-$input-focus-box-shadow: inset 0 0 0 .2rem $component-active-bg;
+$input-focus-box-shadow: inset 0 0 0 0.2rem $component-active-bg;
 
 // Cards
 $card-bg: $bg-secondary;
 $card-color: $white;
-$card-border-radius: 0; 
+$card-border-radius: 0;
 $card-border-color: darken($bg-secondary, 2%);
-
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
-#output{
-    user-select: all;
+#output {
+  user-select: all;
 }
-#input{
+#input {
   background-color: lighten($input-bg, 10%);
 }
 
-textarea{
+textarea {
   resize: none;
   height: 80vh;
   caret-color: $white;
 }
 
 textarea::placeholder {
-  color: darken($white, 5%);  
+  color: darken($white, 5%);
 }
 
-.form-control::placeholder{
-  color: darken($white, 20%); 
+.form-control::placeholder {
+  color: darken($white, 20%);
 }
 
-.col{
+.col {
   padding-right: 0px;
   padding-left: 0px;
 }
-.alert{
-  margin-top: .2rem;
-  margin-bottom: .4rem;
+.alert {
+  margin-top: 0.2rem;
+  margin-bottom: 0.4rem;
 }

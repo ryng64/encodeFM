@@ -1,50 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="scss/app.scss">
-</head>
-<body>
+    <link rel="stylesheet" href="scss/app.scss" />
+  </head>
+  <body>
     <div class="container">
-        <div id="errorMessage"></div>
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        JSON
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">Expression</div>
-                </div>
-            </div>
+      <div id="errorMessage"></div>
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-body">JSON</div>
+          </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="input-group">
-                    <textarea spellcheck="false" style="height: 80vh;" id="input" class="form-control" aria-label="With textarea" placeholder="{...}"></textarea>
-                </div>
-            </div>
-            <div class="col">
-                <div class="input-group">
-                    <textarea style="height: 80vh;" id="output" class="form-control" aria-label="With textarea" placeholder="JSONSetElement(...)"></textarea>
-                </div>
-            </div>    
+        <div class="col">
+          <div class="card">
+            <div class="card-body">Expression</div>
+          </div>
         </div>
-        <div class="row justify-content-around" style="padding-top: .4rem;">
-            <div class="col-4">
-                <button id="translate" type="button" class="btn btn-primary btn-block">Translate</button>
-            </div>
-            <div class="col-4">
-                <button id="copy" type="button" class="btn btn-secondary btn-block">Copy</button>
-            </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="input-group">
+            <textarea
+              spellcheck="false"
+              style="height: 80vh"
+              id="input"
+              class="form-control"
+              aria-label="With textarea"
+              placeholder="{...}"
+            ></textarea>
+          </div>
         </div>
-       
+        <div class="col">
+          <div class="input-group">
+            <textarea
+              style="height: 80vh"
+              id="output"
+              class="form-control"
+              aria-label="With textarea"
+              placeholder="JSONSetElement(...)"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-around" style="padding-top: 0.4rem">
+        <div class="col-4">
+          <button
+            id="translate"
+            type="button"
+            class="btn btn-primary btn-block"
+          >
+            Translate
+          </button>
+        </div>
+        <div class="col-4">
+          <button id="copy" type="button" class="btn btn-secondary btn-block">
+            Copy
+          </button>
+        </div>
+      </div>
     </div>
     <script src="main.js"></script>
-</body>
+  </body>
 </html>
