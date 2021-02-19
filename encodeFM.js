@@ -16,6 +16,7 @@ export default function init() {
 // To allow the use of the translate function, add as a property to the window
 window.translate = translate;
 window.fmTranslate = fmTranslate;
+window.flatten = jsonEncodeFlattenFM;
 
 function setInput(jsonString) {
   const ta = document.getElementById("input");
@@ -47,7 +48,7 @@ function encodeFM(object) {
   } else {
     obj = object;
   }
-  const result = jsonEncodeFM(obj);
+  const result = jsonEncodeFlattenFM(obj);
   clearErrorMessage();
   document.getElementById("output").value = result;
 }
@@ -104,6 +105,76 @@ function jsonEncodeFM(object, tablevel = 0) {
   } else {
     return `"${JSON.stringify(object)}"`;
   }
+}
+
+function jsonEncodeFlattenFM(object, result = [], parentKey = "") {
+  // console.log("flatten => object", object);
+  //Check datatype of object passed.
+  const variableType = getVariableType(object);
+
+  //If there are no keys, or an empty object, return just the object
+  if (isEmpty(object)) {
+    return `"${JSON.stringify(object)}"`;
+  }
+  //1. Get list of [{key, value, datatype}, ... ]
+  if (variableType === "Object" || variableType === "Array") {
+    //Set up brackets accordingly
+    const brackets = variableType === "Object" ? "{}" : "[]";
+
+    //first layer of keys
+    const keys = Object.keys(object);
+
+    keys.forEach((k) => {
+      const val = object[k];
+      const valType = getVariableType(object[k]);
+      //if key is another array or object, do something recursive
+      if (valType === "Object" || valType === "Array") {
+        const key = parentKey === "" ? k : `${parentKey}[${k}]`;
+        // const pKey = `${parentKey}[${key}]`;
+        console.log("jsonEncodeFlattenFM => key:", key);
+        jsonEncodeFlattenFM(val, result, key);
+      } else {
+        //if parent key is empty, check if the key is number or a string
+        let key = "";
+        if (parentKey === "") {
+          key = getVariableType(k) === "String" ? k : `[${k}]`;
+        } else {
+          key =
+            getVariableType(k) === "String"
+              ? `${parentKey}.${k}`
+              : `${parentKey}[${k}]`;
+        }
+
+        // const key = parentKey === "" ? k : `${parentKey}[${k}]`;
+        const value = val;
+        const dataType = `JSON${valType}`;
+        result.push({
+          key,
+          value,
+          dataType,
+        });
+      }
+      // return block;
+    });
+    console.log("jsonEncodeFlattenFM => result:", createFlatFMJSON(result));
+    return result;
+  } else {
+    return `"${JSON.stringify(object)}"`;
+  }
+
+  //2. Go through list and recreate a JSONSetElement() expression "Flattened" out
+}
+
+function createFlatFMJSON(valueList) {
+  console.log("valueList", valueList);
+  const result = valueList
+    .map((obj) => {
+      return `["${obj.key}" ; ${
+        obj.dataType === "JSONString" ? `"${obj.value}"` : obj.value
+      }; ${obj.dataType}]`;
+    })
+    .join(";\r");
+  return result;
 }
 
 function getVariableType(object) {
