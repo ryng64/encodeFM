@@ -6,6 +6,10 @@ export default function init() {
   document.getElementById("translate").onclick = () => {
     translate();
   };
+  //Translate Exploded button
+  document.getElementById("translateExplode").onclick = () => {
+    translate(true);
+  };
 
   //Copy button
   document.getElementById("copy").onclick = () => {
@@ -30,12 +34,12 @@ function fmTranslate(str) {
   encodeFM(str);
 }
 
-function translate() {
+function translate(explode) {
   const ta = document.getElementById("input");
-  encodeFM(ta.value);
+  encodeFM(ta.value, explode);
 }
 
-function encodeFM(object) {
+function encodeFM(object, explode = false) {
   if (object == "") return;
 
   let obj = "";
@@ -49,7 +53,12 @@ function encodeFM(object) {
   } else {
     obj = object;
   }
-  const result = jsonEncodeFlattenFM(obj);
+  let result = "";
+  if (explode) {
+    result = jsonEncodeFM(obj);
+  } else {
+    result = jsonEncodeFlattenFM(obj);
+  }
   clearErrorMessage();
   document.getElementById("output").value = result;
 }
