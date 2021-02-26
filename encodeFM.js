@@ -54,13 +54,18 @@ function encodeFM(object, explode = false) {
     obj = object;
   }
   let result = "";
+  //Encoe the Result
   if (explode) {
     result = jsonEncodeFM(obj);
   } else {
     result = jsonEncodeFlattenFM(obj);
   }
+
   clearErrorMessage();
   document.getElementById("output").value = result;
+  //Tidy up the Input
+  const prettyInput = JSON.stringify(obj, undefined, 2);
+  document.getElementById("input").value = prettyInput;
 }
 
 function copyText() {
