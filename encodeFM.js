@@ -54,7 +54,7 @@ function encodeFM(object, explode = false) {
     obj = object;
   }
   let result = "";
-  //Encoe the Result
+  //Encode the Result
   if (explode) {
     result = jsonEncodeFM(obj);
   } else {
@@ -147,19 +147,41 @@ function jsonEncodeFlattenFM(object, result = [], parentKey = "") {
       const kInt = parseInt(k);
       let key = "";
       if (parentKey === "") {
-        key = isNaN(parseInt(k)) ? k : `[${k}]`;
+        //inital key, numbers must go in [] and strings as they are.
+        key = isNaN(kInt) ? k : `[${k}]`;
       } else {
-        if (isNaN(kInt)) {
-          key = `${parentKey}.${k}`;
-        } else {
-          key = `${parentKey}[${k}]`;
-        }
+        //[] and . notation key that gets built as the function is executed recursively..
+        key = isNaN(kInt) ? `${parentKey}.${k}` : (key = `${parentKey}[${k}]`);
       }
 
-      if (valType === "Object" || valType === "Array") {
-        //We gotta go deeper...
+      if (valType === "Object") {
         // console.log("jsonEncodeFlattenFM => key:", key);
-        jsonEncodeFlattenFM(val, result, key);
+        if (Object.keys(val).length === 0) {
+          const value = JSON.stringify(val);
+          const dataType = `JSON${valType}`;
+          result.push({
+            key,
+            value,
+            dataType,
+          });
+        } else {
+          //We gotta go deeper...
+          jsonEncodeFlattenFM(val, result, key);
+        }
+        //if the array is empty don't go deeper
+      } else if (valType === "Array") {
+        if (val.length === 0) {
+          const value = JSON.stringify(val);
+          const dataType = `JSON${valType}`;
+          result.push({
+            key,
+            value,
+            dataType,
+          });
+        } else {
+          //We gotta go deeper...
+          jsonEncodeFlattenFM(val, result, key);
+        }
       } else {
         const value = val;
         const dataType = `JSON${valType}`;
@@ -181,7 +203,7 @@ function jsonEncodeFlattenFM(object, result = [], parentKey = "") {
 
 function createFlatFMJSON(valueList, object) {
   const brackets = getVariableType(object) === "Object" ? `"{}"` : `"[]"`;
-  console.log("valueList", valueList);
+  // console.log("valueList", valueList);
   let result = "";
   const properties = valueList
     .map((obj) => {
@@ -191,6 +213,8 @@ function createFlatFMJSON(valueList, object) {
       } else {
         v = `"${obj.value}"`;
       }
+      //example ["layouts"; "Projects"; JSONString]
+      //example ["query.activeStatus"; True; JSONBoolean]
       return `    ["${obj.key}"; ${v}; ${obj.dataType}]`;
     })
     .join(";\r");
