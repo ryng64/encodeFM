@@ -91,16 +91,18 @@ function jsonEncodeFM(object, tablevel = 0) {
       .map((k) => {
         let block = ``;
         const val = object[k];
+        const kType = vType === "Object" ? "string" : "number";
+        const dotnotation = k.includes(".") && kType === "string";
         const valType = getVariableType(object[k]);
         if (valType === "Object" || valType === "Array") {
-          block = `[ "${k}" ; ${jsonEncodeFM(
+          block = `[ "${dotnotation ? `.['${k}']` : k}" ; ${jsonEncodeFM(
             object[k],
             tablevel + 1
           )}; JSON${valType}]`;
         } else {
           const blockVal =
             valType === "Number" || valType === "Boolean" ? val : `"${val}"`;
-          block = `[ "${k}" ; ${blockVal}; JSON${
+          block = `[ "${dotnotation ? `.['${k}']` : k}" ; ${blockVal}; JSON${
             valType === "Unknown" ? "String" : valType
           }]`;
         }
@@ -144,14 +146,26 @@ function jsonEncodeFlattenFM(object, result = [], parentKey = "") {
 
       //if key is another array or object, do something recursive
       //check if it is a number
-      const kInt = parseInt(k);
+      const kType = variableType === "Object" ? "string" : "number";
+      const dotnotation = k.includes(".") && kType === "string";
       let key = "";
       if (parentKey === "") {
         //inital key, numbers must go in [] and strings as they are.
-        key = isNaN(kInt) ? k : `[${k}]`;
+        if (dotnotation) {
+          key = `.['${k}']`;
+        } else {
+          key = kType === "string" ? k : `[${k}]`;
+        }
       } else {
         //[] and . notation key that gets built as the function is executed recursively..
-        key = isNaN(kInt) ? `${parentKey}.${k}` : (key = `${parentKey}[${k}]`);
+        if (dotnotation) {
+          key = `${parentKey}['${k}']`;
+        } else {
+          key =
+            kType === "string"
+              ? `${parentKey}.${k}`
+              : (key = `${parentKey}[${k}]`);
+        }
       }
 
       if (valType === "Object") {
