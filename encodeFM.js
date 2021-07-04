@@ -1,4 +1,3 @@
-import { get } from "jquery";
 import { errorMessage, clearErrorMessage } from "./components/errorMessage";
 
 export default function init() {
@@ -217,7 +216,7 @@ function jsonEncodeFlattenFM(object, result = [], parentKey = "") {
 
 function createFlatFMJSON(valueList, object) {
   const brackets = getVariableType(object) === "Object" ? `"{}"` : `"[]"`;
-  // console.log("valueList", valueList);
+  console.log("createFlatFMJSON: valueList", valueList);
   let result = "";
   const properties = valueList
     .map((obj) => {
@@ -229,10 +228,10 @@ function createFlatFMJSON(valueList, object) {
       }
       //example ["layouts"; "Projects"; JSONString]
       //example ["query.activeStatus"; True; JSONBoolean]
-      return `    ["${obj.key}"; ${v}; ${obj.dataType}]`;
+      return `; ["${obj.key}"; ${v}; ${obj.dataType}]`;
     })
-    .join(";\r");
-  result = `JSONSetElement( ${brackets}; \r${properties}\r)`;
+    .join("\r");
+  result = `JSONSetElement( ${brackets} \r${properties}\r)`;
   return result;
 }
 
