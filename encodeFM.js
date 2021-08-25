@@ -100,7 +100,9 @@ function jsonEncodeFM(object, tablevel = 0) {
           )}; JSON${valType}]`;
         } else {
           const blockVal =
-            valType === "Number" || valType === "Boolean" ? val : `"${val}"`;
+            valType === "Number" || valType === "Boolean"
+              ? val
+              : JSON.stringify(val);
           block = `[ "${dotnotation ? `.['${k}']` : k}" ; ${blockVal}; JSON${
             valType === "Unknown" ? "String" : valType
           }]`;
@@ -124,7 +126,6 @@ function jsonEncodeFM(object, tablevel = 0) {
 }
 
 function jsonEncodeFlattenFM(object, result = [], parentKey = "") {
-  // console.log("flatten => object", object);
   //Check datatype of object passed.
   const variableType = getVariableType(object);
 
@@ -141,7 +142,6 @@ function jsonEncodeFlattenFM(object, result = [], parentKey = "") {
     keys.forEach((k) => {
       const val = object[k];
       const valType = getVariableType(object[k]);
-      // console.log("eachKey => k:", k, getVariableType(k));
 
       //if key is another array or object, do something recursive
       //check if it is a number
@@ -168,7 +168,6 @@ function jsonEncodeFlattenFM(object, result = [], parentKey = "") {
       }
 
       if (valType === "Object") {
-        // console.log("jsonEncodeFlattenFM => key:", key);
         if (Object.keys(val).length === 0) {
           const value = JSON.stringify(val);
           const dataType = `JSON${valType}`;
@@ -205,7 +204,6 @@ function jsonEncodeFlattenFM(object, result = [], parentKey = "") {
         });
       }
     });
-    // console.log("jsonEncodeFlattenFM => result:", createFlatFMJSON(result,object));
     return createFlatFMJSON(result, object);
   } else {
     return `"${JSON.stringify(object)}"`;
@@ -216,7 +214,6 @@ function jsonEncodeFlattenFM(object, result = [], parentKey = "") {
 
 function createFlatFMJSON(valueList, object) {
   const brackets = getVariableType(object) === "Object" ? `"{}"` : `"[]"`;
-  console.log("createFlatFMJSON: valueList", valueList);
   let result = "";
   const properties = valueList
     .map((obj) => {
@@ -224,7 +221,7 @@ function createFlatFMJSON(valueList, object) {
       if (obj.dataType === "JSONBoolean" || obj.dataType === "JSONNumber") {
         v = obj.value;
       } else {
-        v = `"${obj.value}"`;
+        v = `${JSON.stringify(obj.value)}`;
       }
       //example ["layouts"; "Projects"; JSONString]
       //example ["query.activeStatus"; True; JSONBoolean]
