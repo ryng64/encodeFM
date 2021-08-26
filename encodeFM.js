@@ -163,12 +163,16 @@ function createFMJSON(valueList, object) {
       } else {
         v = `${JSON.stringify(obj.value)}`;
       }
-      if (obj.value.includes("\t")) {
-        v = `"${obj.value}"`;
+
+      if (obj.dataType === "JSONString") {
+        if (obj.value.includes("\t")) {
+          v = `"${obj.value}"`;
+        }
+        if (obj.value.includes("\r")) {
+          v = `"${obj.value.replaceAll("\r", "¶")}"`;
+        }
       }
-      if (obj.value.includes("\r")) {
-        v = `"${obj.value.replaceAll("\r", "¶")}"`;
-      }
+
       //example ["layouts"; "Projects"; JSONString]
       //example ["query.activeStatus"; True; JSONBoolean]
       return `; ["${obj.key}"; ${v}; ${obj.dataType}]`;
