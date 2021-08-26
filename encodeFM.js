@@ -52,13 +52,14 @@ function encodeFM(object, explode = false) {
   } else {
     obj = object;
   }
-  let result = "";
-  //Encode the Result
-  if (explode) {
-    result = jsonEncodeFM(obj);
-  } else {
-    result = jsonEncodeFlattenFM(obj);
-  }
+  // let result = "";
+  // //Encode the Result
+  // if (explode) {
+  //   result = jsonEncodeFM(obj);
+  // } else {
+  //   result = jsonEncodeFlattenFM(obj);
+  // }
+  const result = jsonEncodeFlattenFM(obj);
 
   clearErrorMessage();
   document.getElementById("output").value = result;
@@ -222,6 +223,12 @@ function createFlatFMJSON(valueList, object) {
         v = obj.value;
       } else {
         v = `${JSON.stringify(obj.value)}`;
+      }
+      if (obj.value.includes("\t")) {
+        v = `"${obj.value}"`;
+      }
+      if (obj.value.includes("\r")) {
+        v = `"${obj.value.replaceAll("\r", "¶")}"`;
       }
       //example ["layouts"; "Projects"; JSONString]
       //example ["query.activeStatus"; True; JSONBoolean]
