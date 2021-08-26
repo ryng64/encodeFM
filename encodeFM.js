@@ -5,10 +5,6 @@ export default function init() {
   document.getElementById("translate").onclick = () => {
     translate();
   };
-  //Translate Exploded button
-  document.getElementById("translateExplode").onclick = () => {
-    translate(true);
-  };
 
   //Copy button
   document.getElementById("copy").onclick = () => {
@@ -20,7 +16,7 @@ export default function init() {
 // To allow the use of the translate function, add as a property to the window
 window.translate = translate;
 window.fmTranslate = fmTranslate;
-window.flatten = jsonEncodeFlattenFM;
+window.flatten = jsonEncodeFM;
 
 function setInput(jsonString) {
   const ta = document.getElementById("input");
@@ -52,14 +48,8 @@ function encodeFM(object, explode = false) {
   } else {
     obj = object;
   }
-  // let result = "";
-  // //Encode the Result
-  // if (explode) {
-  //   result = jsonEncodeFM(obj);
-  // } else {
-  //   result = jsonEncodeFlattenFM(obj);
-  // }
-  const result = jsonEncodeFlattenFM(obj);
+
+  const result = jsonEncodeFM(obj);
 
   clearErrorMessage();
   document.getElementById("output").value = result;
@@ -75,58 +65,7 @@ function copyText() {
   document.execCommand("copy");
 }
 
-function jsonEncodeFM(object, tablevel = 0) {
-  //Check datatype of object passed.
-  const vType = getVariableType(object);
-
-  //If there are no keys, or an empty object, return just the object
-  if (isEmpty(object)) {
-    return `"${JSON.stringify(object)}"`;
-  }
-
-  if (vType === "Object" || vType === "Array") {
-    const brackets = vType === "Object" ? "{}" : "[]";
-    const keys = Object.keys(object);
-    const blocks = keys
-      .map((k) => {
-        let block = ``;
-        const val = object[k];
-        const kType = vType === "Object" ? "string" : "number";
-        const dotnotation = k.includes(".") && kType === "string";
-        const valType = getVariableType(object[k]);
-        if (valType === "Object" || valType === "Array") {
-          block = `[ "${dotnotation ? `.['${k}']` : k}" ; ${jsonEncodeFM(
-            object[k],
-            tablevel + 1
-          )}; JSON${valType}]`;
-        } else {
-          const blockVal =
-            valType === "Number" || valType === "Boolean"
-              ? val
-              : JSON.stringify(val);
-          block = `[ "${dotnotation ? `.['${k}']` : k}" ; ${blockVal}; JSON${
-            valType === "Unknown" ? "String" : valType
-          }]`;
-        }
-        return block;
-      })
-      .join(`;\r${tabify(tablevel + 1)}`);
-    // let starter = `JSONSetElement ( "${brackets}"; ${blocks} )`
-    const sub = tablevel + 1;
-    const thisTab = tabify(tablevel);
-    const subTab = tabify(sub);
-    let starter = `JSONSetElement (\r`;
-    starter = starter + `${subTab}"${brackets}";\r`;
-    starter = starter + `${subTab}${blocks}\r`;
-    starter = starter + `${thisTab})`;
-
-    return starter;
-  } else {
-    return `"${JSON.stringify(object)}"`;
-  }
-}
-
-function jsonEncodeFlattenFM(object, result = [], parentKey = "") {
+function jsonEncodeFM(object, result = [], parentKey = "") {
   //Check datatype of object passed.
   const variableType = getVariableType(object);
 
@@ -179,7 +118,7 @@ function jsonEncodeFlattenFM(object, result = [], parentKey = "") {
           });
         } else {
           //We gotta go deeper...
-          jsonEncodeFlattenFM(val, result, key);
+          jsonEncodeFM(val, result, key);
         }
         //if the array is empty don't go deeper
       } else if (valType === "Array") {
@@ -193,7 +132,7 @@ function jsonEncodeFlattenFM(object, result = [], parentKey = "") {
           });
         } else {
           //We gotta go deeper...
-          jsonEncodeFlattenFM(val, result, key);
+          jsonEncodeFM(val, result, key);
         }
       } else {
         const value = val;
@@ -205,7 +144,7 @@ function jsonEncodeFlattenFM(object, result = [], parentKey = "") {
         });
       }
     });
-    return createFlatFMJSON(result, object);
+    return createFMJSON(result, object);
   } else {
     return `"${JSON.stringify(object)}"`;
   }
@@ -213,7 +152,7 @@ function jsonEncodeFlattenFM(object, result = [], parentKey = "") {
   //2. Go through list and recreate a JSONSetElement() expression "Flattened" out
 }
 
-function createFlatFMJSON(valueList, object) {
+function createFMJSON(valueList, object) {
   const brackets = getVariableType(object) === "Object" ? `"{}"` : `"[]"`;
   let result = "";
   const properties = valueList
@@ -285,12 +224,4 @@ function isEmpty(val) {
   if (type === "Null") {
     return true;
   }
-}
-
-function tabify(num = 0) {
-  let tab = "";
-  for (let i = 0; i < num; i++) {
-    tab = tab + "    ";
-  }
-  return tab;
 }
