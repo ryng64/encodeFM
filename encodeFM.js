@@ -1,6 +1,16 @@
 import { errorMessage, clearErrorMessage } from "./components/errorMessage";
+import JSONEditor from "jsoneditor";
+import 'jsoneditor/dist/jsoneditor.css';
+// import './JSONEditorDemo.css';
 
 export default function init() {
+
+  //
+  const container = document.getElementById("jsoneditor");
+  const options = {mode:"code", modes:["code","tree","form"]}
+  const editor = new JSONEditor(container, options);
+  window.jseditor = editor
+  
   //Translate button
   document.getElementById("translate").onclick = () => {
     translate();
@@ -19,9 +29,9 @@ window.fmTranslate = fmTranslate;
 window.flatten = jsonEncodeFM;
 
 function setInput(jsonString) {
-  const ta = document.getElementById("input");
-  ta.value = jsonString;
+  window.jseditor.set(jsonString)
 }
+
 
 function fmTranslate(str) {
   //set the input to string and translate
@@ -29,9 +39,9 @@ function fmTranslate(str) {
   encodeFM(str);
 }
 
-function translate(explode) {
-  const ta = document.getElementById("input");
-  encodeFM(ta.value, explode);
+function translate() {
+  const json = JSON.stringify(window.jseditor.get())
+  encodeFM(json);
 }
 
 function encodeFM(object) {
@@ -53,9 +63,6 @@ function encodeFM(object) {
 
   clearErrorMessage();
   document.getElementById("output").value = result;
-  //Tidy up the Input
-  const prettyInput = JSON.stringify(obj, undefined, 2);
-  document.getElementById("input").value = prettyInput;
 }
 
 function copyText() {
@@ -172,6 +179,9 @@ function createFMJSON(valueList, object) {
         }
         if (obj.value.includes("\r")) {
           v = `"${obj.value.replaceAll("\r", "¶")}"`;
+        }
+        if (obj.value.includes("\n")) {
+          v = `"${obj.value.replaceAll("\n", "¶")}"`;
         }
       }
 
