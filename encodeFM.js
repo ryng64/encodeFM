@@ -34,7 +34,7 @@ function translate(explode) {
   encodeFM(ta.value, explode);
 }
 
-function encodeFM(object, explode = false) {
+function encodeFM(object) {
   if (object == "") return;
 
   let obj = "";
@@ -149,7 +149,7 @@ function jsonEncodeFM(object, result = [], parentKey = "") {
     return `"${JSON.stringify(object)}"`;
   }
 
-  //2. Go through list and recreate a JSONSetElement() expression "Flattened" out
+  //2. Go through list and recreate a JSONSetElement() expression.
 }
 
 function createFMJSON(valueList, object) {
@@ -160,6 +160,8 @@ function createFMJSON(valueList, object) {
       let v = "";
       if (obj.dataType === "JSONBoolean" || obj.dataType === "JSONNumber") {
         v = obj.value;
+      }else if(obj.dataType === "JSONNull"){
+        v = `"${obj.value}"`
       } else {
         v = `${JSON.stringify(obj.value)}`;
       }
