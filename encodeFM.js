@@ -1,20 +1,27 @@
 import { errorMessage, clearErrorMessage } from "./components/errorMessage";
 import JSONEditor from "jsoneditor";
-import 'jsoneditor/dist/jsoneditor.css';
+import "jsoneditor/dist/jsoneditor.css";
 // import './JSONEditorDemo.css';
 
 export default function init() {
-
   //
   const container = document.getElementById("jsoneditor");
-  const options = {mode:"code", modes:["code","tree","form"]}
-  const editor = new JSONEditor(container, options);
-  window.jseditor = editor
-  
+  const options = {
+    mode: "code",
+    modes: ["code", "tree", "form"],
+  };
+  const editor = new JSONEditor(container, options, "");
+  window.jseditor = editor;
+
   //Translate button
   document.getElementById("translate").onclick = () => {
     translate();
   };
+
+  // //Save Button
+  // document.getElementById("save").onclick = () => {
+  //   saveJSON();
+  // };
 
   //Copy button
   document.getElementById("copy").onclick = () => {
@@ -29,9 +36,9 @@ window.fmTranslate = fmTranslate;
 window.flatten = jsonEncodeFM;
 
 function setInput(jsonString) {
-  window.jseditor.set(jsonString)
+  const json = JSON.parse(jsonString);
+  window.jseditor.set(json);
 }
-
 
 function fmTranslate(str) {
   //set the input to string and translate
@@ -40,7 +47,7 @@ function fmTranslate(str) {
 }
 
 function translate() {
-  const json = JSON.stringify(window.jseditor.get())
+  const json = JSON.stringify(window.jseditor.get());
   encodeFM(json);
 }
 
@@ -71,6 +78,16 @@ function copyText() {
   output.setSelectionRange(0, 99999); //meant for mobile according to w3 schools
   document.execCommand("copy");
 }
+
+// function saveJSON() {
+//   const json = window.jseditor.get();
+//   if (window.FileMaker) {
+//     debugger;
+//     FileMaker.PerformScript("Save JSON", JSON.stringify(json));
+//   } else {
+//     alert("could not save");
+//   }
+// }
 
 function jsonEncodeFM(object, result = [], parentKey = "") {
   //Check datatype of object passed.
@@ -167,8 +184,8 @@ function createFMJSON(valueList, object) {
       let v = "";
       if (obj.dataType === "JSONBoolean" || obj.dataType === "JSONNumber") {
         v = obj.value;
-      }else if(obj.dataType === "JSONNull"){
-        v = `"${obj.value}"`
+      } else if (obj.dataType === "JSONNull") {
+        v = `"${obj.value}"`;
       } else {
         v = `${JSON.stringify(obj.value)}`;
       }
