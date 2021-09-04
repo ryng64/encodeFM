@@ -166,7 +166,7 @@ function createFMJSON(valueList, object) {
   const brackets = getVariableType(object) === "Object" ? `"{}"` : `"[]"`;
   let result = "";
   const properties = valueList
-    .map((obj) => {
+    .map((obj, i, arr) => {
       let v = "";
       if (obj.dataType === "JSONBoolean" || obj.dataType === "JSONNumber") {
         v = obj.value;
@@ -187,10 +187,18 @@ function createFMJSON(valueList, object) {
 
       //example ["layouts"; "Projects"; JSONString]
       //example ["query.activeStatus"; True; JSONBoolean]
-      return `; ["${obj.key}"; ${v}; ${obj.dataType}]`;
+      if (leadingSemi) {
+        return `; ["${obj.key}"; ${v}; ${obj.dataType}]`;
+      } else if (i === arr.length - 1) {
+        return `  ["${obj.key}"; ${v}; ${obj.dataType}]`;
+      } else {
+        return `  ["${obj.key}"; ${v}; ${obj.dataType}];`;
+      }
     })
     .join("\r");
-  result = `JSONSetElement( ${brackets} \r${properties}\r)`;
+  result = `JSONSetElement( ${brackets}${
+    leadingSemi ? "" : ";"
+  } \r${properties}\r)`;
   return result;
 }
 
