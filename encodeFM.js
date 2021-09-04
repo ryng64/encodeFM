@@ -1,9 +1,19 @@
 import { errorMessage, clearErrorMessage } from "./components/errorMessage";
+import preferences, { toggleSemicolon } from "./components/preferences";
 
 export default function init() {
+  //init preferences
+  window.preferences = preferences();
+  const semicolonSwitch = document.getElementById("customSwitch1");
+  semicolonSwitch.checked = window.preferences.semicolonLeading;
+
   //Translate button
   document.getElementById("translate").onclick = () => {
     translate();
+  };
+  //SemiColon Switch
+  semicolonSwitch.onchange = (e) => {
+    toggleSemicolon(e);
   };
 
   //Copy button
@@ -153,15 +163,16 @@ function jsonEncodeFM(object, result = [], parentKey = "") {
 }
 
 function createFMJSON(valueList, object) {
+  const leadingSemi = window.preferences.semicolonLeading;
   const brackets = getVariableType(object) === "Object" ? `"{}"` : `"[]"`;
   let result = "";
   const properties = valueList
-    .map((obj) => {
+    .map((obj, i, arr) => {
       let v = "";
       if (obj.dataType === "JSONBoolean" || obj.dataType === "JSONNumber") {
         v = obj.value;
-      }else if(obj.dataType === "JSONNull"){
-        v = `"${obj.value}"`
+      } else if (obj.dataType === "JSONNull") {
+        v = `"${obj.value}"`;
       } else {
         v = `${JSON.stringify(obj.value)}`;
       }
@@ -177,10 +188,18 @@ function createFMJSON(valueList, object) {
 
       //example ["layouts"; "Projects"; JSONString]
       //example ["query.activeStatus"; True; JSONBoolean]
-      return `; ["${obj.key}"; ${v}; ${obj.dataType}]`;
+      if (leadingSemi) {
+        return `; ["${obj.key}"; ${v}; ${obj.dataType}]`;
+      } else if (i === arr.length - 1) {
+        return `  ["${obj.key}"; ${v}; ${obj.dataType}]`;
+      } else {
+        return `  ["${obj.key}"; ${v}; ${obj.dataType}];`;
+      }
     })
     .join("\r");
-  result = `JSONSetElement( ${brackets} \r${properties}\r)`;
+  result = `JSONSetElement( ${brackets}${
+    leadingSemi ? "" : ";"
+  } \r${properties}\r)`;
   return result;
 }
 
