@@ -1,11 +1,20 @@
 import { errorMessage, clearErrorMessage } from "./components/errorMessage";
+import toggleSwitch, { onChange } from "./components/toggleSwitch";
 
 export default function init() {
+  //init preferences
+  window.preferences = {};
   //Translate button
   document.getElementById("translate").onclick = () => {
     translate();
   };
-
+  //test
+  document.getElementById("customSwitch1").onchange = (e) => {
+    const checked = e.target.checked;
+    window.preferences.semicolonLeading = checked;
+    console.log(checked);
+  };
+  console.log(document.getElementById("customSwitch1"));
   //Copy button
   document.getElementById("copy").onclick = () => {
     copyText();
@@ -153,6 +162,7 @@ function jsonEncodeFM(object, result = [], parentKey = "") {
 }
 
 function createFMJSON(valueList, object) {
+  const leadingSemi = window.preferences.semicolonLeading;
   const brackets = getVariableType(object) === "Object" ? `"{}"` : `"[]"`;
   let result = "";
   const properties = valueList
@@ -160,8 +170,8 @@ function createFMJSON(valueList, object) {
       let v = "";
       if (obj.dataType === "JSONBoolean" || obj.dataType === "JSONNumber") {
         v = obj.value;
-      }else if(obj.dataType === "JSONNull"){
-        v = `"${obj.value}"`
+      } else if (obj.dataType === "JSONNull") {
+        v = `"${obj.value}"`;
       } else {
         v = `${JSON.stringify(obj.value)}`;
       }
