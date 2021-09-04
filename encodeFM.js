@@ -1,20 +1,21 @@
 import { errorMessage, clearErrorMessage } from "./components/errorMessage";
-import toggleSwitch, { onChange } from "./components/toggleSwitch";
+import preferences, { toggleSemicolon } from "./components/preferences";
 
 export default function init() {
   //init preferences
-  window.preferences = {};
+  window.preferences = preferences();
+  const semicolonSwitch = document.getElementById("customSwitch1");
+  semicolonSwitch.checked = window.preferences.semicolonLeading;
+
   //Translate button
   document.getElementById("translate").onclick = () => {
     translate();
   };
-  //test
-  document.getElementById("customSwitch1").onchange = (e) => {
-    const checked = e.target.checked;
-    window.preferences.semicolonLeading = checked;
-    console.log(checked);
+  //SemiColon Switch
+  semicolonSwitch.onchange = (e) => {
+    toggleSemicolon(e);
   };
-  console.log(document.getElementById("customSwitch1"));
+
   //Copy button
   document.getElementById("copy").onclick = () => {
     copyText();
