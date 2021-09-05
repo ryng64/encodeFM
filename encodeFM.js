@@ -1,10 +1,20 @@
 import { errorMessage, clearErrorMessage } from "./components/errorMessage";
 import preferences, { toggleSemicolon } from "./components/preferences";
+import JSONEditor from "jsoneditor";
+import "jsoneditor/dist/jsoneditor.css";
 
 export default function init() {
-  //init preferences
+  // //init preferences
   window.preferences = preferences();
   const semicolonSwitch = document.getElementById("customSwitch1");
+
+  const container = document.getElementById("jsoneditor");
+  const options = {
+    mode: "code",
+    modes: ["code", "tree", "form"],
+  };
+  const editor = new JSONEditor(container, options, "");
+  window.jseditor = editor;
 
   //Translate button
   document.getElementById("translate").onclick = () => {
@@ -14,6 +24,11 @@ export default function init() {
   semicolonSwitch.onchange = (e) => {
     toggleSemicolon(e);
   };
+
+  // //Save Button
+  // document.getElementById("save").onclick = () => {
+  //   saveJSON();
+  // };
 
   //Copy button
   document.getElementById("copy").onclick = () => {
@@ -28,8 +43,8 @@ window.fmTranslate = fmTranslate;
 window.flatten = jsonEncodeFM;
 
 function setInput(jsonString) {
-  const ta = document.getElementById("input");
-  ta.value = jsonString;
+  const json = JSON.parse(jsonString);
+  window.jseditor.set(json);
 }
 
 function fmTranslate(str) {
@@ -38,9 +53,9 @@ function fmTranslate(str) {
   encodeFM(str);
 }
 
-function translate(explode) {
-  const ta = document.getElementById("input");
-  encodeFM(ta.value, explode);
+function translate() {
+  const json = JSON.stringify(window.jseditor.get());
+  encodeFM(json);
 }
 
 function encodeFM(object) {
@@ -62,9 +77,6 @@ function encodeFM(object) {
 
   clearErrorMessage();
   document.getElementById("output").value = result;
-  //Tidy up the Input
-  const prettyInput = JSON.stringify(obj, undefined, 2);
-  document.getElementById("input").value = prettyInput;
 }
 
 function copyText() {
@@ -73,6 +85,16 @@ function copyText() {
   output.setSelectionRange(0, 99999); //meant for mobile according to w3 schools
   document.execCommand("copy");
 }
+
+// function saveJSON() {
+//   const json = window.jseditor.get();
+//   if (window.FileMaker) {
+//     debugger;
+//     FileMaker.PerformScript("Save JSON", JSON.stringify(json));
+//   } else {
+//     alert("could not save");
+//   }
+// }
 
 function jsonEncodeFM(object, result = [], parentKey = "") {
   //Check datatype of object passed.
@@ -182,6 +204,9 @@ function createFMJSON(valueList, object) {
         }
         if (obj.value.includes("\r")) {
           v = `"${obj.value.replaceAll("\r", "¶")}"`;
+        }
+        if (obj.value.includes("\n")) {
+          v = `"${obj.value.replaceAll("\n", "¶")}"`;
         }
       }
 

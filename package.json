@@ -29,6 +29,7 @@
     "@fortawesome/fontawesome-free": "^5.15.1",
     "parcel-bundler": "^1.12.5",
     "parcel-plugin-inliner": "^1.0.16",
+    "posthtml-inline-svg": "^0.2.0",
     "sass": "^1.30.0"
   },
   "dependencies": {
@@ -36,6 +37,7 @@
     "bootstrap": "^4.5.3",
     "fm-webviewer-fetch": "^1.1.0",
     "jquery": "^3.5.1",
+    "jsoneditor": "^9.5.4",
     "popper.js": "^1.16.1"
   }
 }
