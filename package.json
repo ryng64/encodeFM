@@ -32,7 +32,9 @@
     "sass": "^1.30.0"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.5.3",
+    "fm-webviewer-fetch": "^1.1.0",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1"
   }
