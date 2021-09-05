@@ -1,4 +1,6 @@
 .cache
-dist/
+dist/*
 node_modules/
 Recover.log
+
+!dist/index.html

@@ -5,7 +5,6 @@ export default function init() {
   //init preferences
   window.preferences = preferences();
   const semicolonSwitch = document.getElementById("customSwitch1");
-  semicolonSwitch.checked = window.preferences.semicolonLeading;
 
   //Translate button
   document.getElementById("translate").onclick = () => {
