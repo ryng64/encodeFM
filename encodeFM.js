@@ -1,10 +1,14 @@
 import { errorMessage, clearErrorMessage } from "./components/errorMessage";
-import preferences, { toggleSemicolon } from "./components/preferences";
+import preferences, {
+  toggleSemicolon,
+  toggleVars,
+} from "./components/preferences";
 
 export default function init() {
   //init preferences
   window.preferences = preferences();
   const semicolonSwitch = document.getElementById("customSwitch1");
+  const useVars = document.getElementById("vars");
 
   //Translate button
   document.getElementById("translate").onclick = () => {
@@ -13,6 +17,10 @@ export default function init() {
   //SemiColon Switch
   semicolonSwitch.onchange = (e) => {
     toggleSemicolon(e);
+  };
+  //vars Switch
+  useVars.onchange = (e) => {
+    toggleVars(e);
   };
 
   //Copy button
@@ -163,7 +171,7 @@ function jsonEncodeFM(object, result = [], parentKey = "") {
 
 function createFMJSON(valueList, object) {
   const leadingSemi = window.preferences.semicolonLeading;
-  const useVars = true;
+  const useVars = window.preferences.useVars;
   const brackets = getVariableType(object) === "Object" ? `"{}"` : `"[]"`;
   let result = "";
   const properties = valueList
