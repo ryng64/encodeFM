@@ -163,6 +163,7 @@ function jsonEncodeFM(object, result = [], parentKey = "") {
 
 function createFMJSON(valueList, object) {
   const leadingSemi = window.preferences.semicolonLeading;
+  const useVars = true;
   const brackets = getVariableType(object) === "Object" ? `"{}"` : `"[]"`;
   let result = "";
   const properties = valueList
@@ -187,6 +188,15 @@ function createFMJSON(valueList, object) {
 
       //example ["layouts"; "Projects"; JSONString]
       //example ["query.activeStatus"; True; JSONBoolean]
+      if (useVars) {
+        console.log("useVars", obj.key);
+        console.log("useVars", obj.key.startsWith("["));
+        v = obj.key.startsWith("[") ? obj.key.replace("[", "_") : obj.key;
+        debugger;
+        v = v.replaceAll("[", ".").replaceAll("]", "");
+        v = `$${v}`;
+      }
+
       if (leadingSemi) {
         return `; ["${obj.key}"; ${v}; ${obj.dataType}]`;
       } else if (i === arr.length - 1) {
