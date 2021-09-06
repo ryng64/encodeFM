@@ -12,7 +12,7 @@
       <div class="row">
         <div class="col">
           <div class="card">
-            <div class="card-body">
+            <div class="card-body pb-1">
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-6">
@@ -26,7 +26,29 @@
                     <div class="container">
                       <div class="row">
                         <div class="col-6">Expression</div>
-                        <div class="col-3"></div>
+                        <div class="col-3">
+                          <form>
+                            <div class="form-group">
+                              <div class="custom-control custom-switch">
+                                <input
+                                  type="checkbox"
+                                  class="custom-control-input"
+                                  id="vars"
+                                />
+                                <label
+                                  title="Toggle Leading semicolon"
+                                  class="custom-control-label"
+                                  for="vars"
+                                  style="
+                                    padding-right: 8px;
+                                    white-space: nowrap;
+                                  "
+                                  >$vars</label
+                                >
+                              </div>
+                            </div>
+                          </form>
+                        </div>
                         <div class="col-3">
                           <form>
                             <div class="form-group">

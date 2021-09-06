@@ -1,6 +1,6 @@
 {
   "name": "json-fm-encoder",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "converts JSON into the FileMaker JSONSetElement expression",
   "main": "main.js",
   "scripts": {
