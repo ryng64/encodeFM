@@ -1,12 +1,15 @@
 import { errorMessage, clearErrorMessage } from "./components/errorMessage";
-import preferences, { toggleSemicolon } from "./components/preferences";
 import JSONEditor from "jsoneditor";
-import "jsoneditor/dist/jsoneditor.css";
+import preferences, {
+  toggleSemicolon,
+  toggleVars,
+} from "./components/preferences";
 
 export default function init() {
   // //init preferences
   window.preferences = preferences();
   const semicolonSwitch = document.getElementById("customSwitch1");
+  const useVars = document.getElementById("vars");
 
   const container = document.getElementById("jsoneditor");
   const options = {
@@ -23,6 +26,10 @@ export default function init() {
   //SemiColon Switch
   semicolonSwitch.onchange = (e) => {
     toggleSemicolon(e);
+  };
+  //vars Switch
+  useVars.onchange = (e) => {
+    toggleVars(e);
   };
 
   // //Save Button
@@ -185,6 +192,7 @@ function jsonEncodeFM(object, result = [], parentKey = "") {
 
 function createFMJSON(valueList, object) {
   const leadingSemi = window.preferences.semicolonLeading;
+  const useVars = window.preferences.useVars;
   const brackets = getVariableType(object) === "Object" ? `"{}"` : `"[]"`;
   let result = "";
   const properties = valueList
@@ -212,6 +220,15 @@ function createFMJSON(valueList, object) {
 
       //example ["layouts"; "Projects"; JSONString]
       //example ["query.activeStatus"; True; JSONBoolean]
+      if (useVars) {
+        console.log("useVars", obj.key);
+        console.log("useVars", obj.key.startsWith("["));
+        v = obj.key.startsWith("[") ? obj.key.replace("[", "_") : obj.key;
+        debugger;
+        v = v.replaceAll("[", ".").replaceAll("]", "");
+        v = `$${v}`;
+      }
+
       if (leadingSemi) {
         return `; ["${obj.key}"; ${v}; ${obj.dataType}]`;
       } else if (i === arr.length - 1) {

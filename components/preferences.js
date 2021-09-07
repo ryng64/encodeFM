@@ -19,7 +19,14 @@ export function toggleSemicolon(e) {
   const checked = e.target.checked;
   window.preferences.semicolonLeading = checked;
   window.localStorage.preferences = JSON.stringify(window.preferences);
-  console.log(checked);
+  //ToDo: update filemaker preference
+  FileMaker.PerformScript("SetPreferences", JSON.stringify(window.preferences));
+}
+
+export function toggleVars(e) {
+  const checked = e.target.checked;
+  window.preferences.useVars = checked;
+  window.localStorage.preferences = JSON.stringify(window.preferences);
   //ToDo: update filemaker preference
   FileMaker.PerformScript("SetPreferences", JSON.stringify(window.preferences));
 }
@@ -39,4 +46,7 @@ async function receiver(e) {
   //update preferences
   const semicolonSwitch = document.getElementById("customSwitch1");
   semicolonSwitch.checked = param.semicolonLeading;
+
+  const varsSwitch = document.getElementById("vars");
+  varsSwitch.checked = param.useVars;
 }

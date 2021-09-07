@@ -1,3 +1,10 @@
+// ACE styling
+$ace-background: rgb(112, 112, 112);
+$dark-ace: #18171b;
+$text-blue: #8ef7ff;
+$ace-string: rgb(253, 162, 77);
+$number-boolean: rgb(172, 253, 78);
+
 /* dark styling of the editor */
 div.jsoneditor,
 div.jsoneditor-menu {
@@ -8,7 +15,7 @@ div.jsoneditor-menu {
 }
 div.jsoneditor-tree,
 div.jsoneditor textarea.jsoneditor-text {
-  background-color: #666666;
+  background-color: $ace-background;
   color: #ffffff;
 }
 div.jsoneditor-field,
@@ -24,10 +31,10 @@ tr.jsoneditor-selected {
   background-color: #808080;
 }
 
-div.jsoneditor-field[contenteditable=true]:focus,
-div.jsoneditor-field[contenteditable=true]:hover,
-div.jsoneditor-value[contenteditable=true]:focus,
-div.jsoneditor-value[contenteditable=true]:hover,
+div.jsoneditor-field[contenteditable="true"]:focus,
+div.jsoneditor-field[contenteditable="true"]:hover,
+div.jsoneditor-value[contenteditable="true"]:focus,
+div.jsoneditor-value[contenteditable="true"]:hover,
 div.jsoneditor-field.jsoneditor-highlight,
 div.jsoneditor-value.jsoneditor-highlight {
   background-color: #808080;
@@ -50,31 +57,118 @@ div.jsoneditor-tree button:focus {
 
 /* coloring of JSON in tree mode */
 div.jsoneditor-readonly {
-  color: #acacac;
+  color: $text-blue;
 }
 div.jsoneditor td.jsoneditor-separator {
-  color: #acacac;
+  color: #f0f0f0;
 }
 div.jsoneditor-value.jsoneditor-string {
-  color: #00ff88;
+  color: $ace-string;
 }
 div.jsoneditor-value.jsoneditor-object,
 div.jsoneditor-value.jsoneditor-array {
-  color: #bababa;
+  color: lighten($text-blue, 15%);
 }
 div.jsoneditor-value.jsoneditor-number {
-  color: #ff4040;
+  color: $number-boolean;
 }
 div.jsoneditor-value.jsoneditor-boolean {
-  color: #ff8048;
+  color: $number-boolean;
+  font-style: italic;
 }
 div.jsoneditor-value.jsoneditor-null {
-  color: #49a7fc;
+  color: $text-blue;
 }
 div.jsoneditor-value.jsoneditor-invalid {
+  color: $text-blue;
+}
+
+.jsoneditor-navigation-bar {
+  background-color: $ace-background;
+  color: white;
+  border-bottom: 1px solid darken($ace-background, 10%);
+}
+
+div.jsoneditor-tree button.jsoneditor-button:focus {
+  background-color: $dark-ace;
+  outline: $dark-ace solid 1px;
+}
+//
+
+div.ace_scroller,
+div.ace-jsoneditor {
+  background-color: $ace-background !important;
+}
+
+div.ace_gutter-cell {
   color: white;
 }
 
-div.ace-content {
-  background-color: #616161;
+.ace-jsoneditor .ace_gutter-active-line {
+  background-color: darken($ace-background, 10%);
+}
+
+.ace-jsoneditor .ace_gutter {
+  background-color: lighten($ace-background, 10%);
+  color: #333;
+}
+
+.jsoneditor-statusbar {
+  line-height: 26px;
+  height: 26px;
+  color: rgb(255, 255, 255);
+  background-color: lighten($ace-background, 20%);
+  border-top: 1px solid darken($ace-background, 10%);
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 10pt;
+}
+// .ace_open,
+// .ace_close {
+//   color: white;
+// }
+
+.ace-jsoneditor .ace_text-layer {
+  color: lighten($text-blue, 15%);
+}
+
+.ace-jsoneditor .ace_variable {
+  color: $text-blue;
+}
+
+.ace-jsoneditor .ace_string {
+  color: $ace-string;
+}
+.ace-jsoneditor .ace_constant.ace_numeric {
+  color: $number-boolean;
+}
+
+.ace-jsoneditor .ace_constant.ace_language {
+  color: $number-boolean;
+  font-style: italic;
+}
+
+.ace-jsoneditor .ace_marker-layer .ace_active-line {
+  background: $dark-ace;
+}
+.jsoneditor .jsoneditor-validation-errors-container {
+  background-color: #ec5443;
+}
+pre {
+  color: white;
+}
+
+.jsoneditor-popover,
+.jsoneditor-schema-error,
+div.jsoneditor td,
+div.jsoneditor textarea,
+div.jsoneditor th,
+div.jsoneditor-field,
+div.jsoneditor-value,
+pre.jsoneditor-preview {
+  color: $text-blue;
+}
+.ace-jsoneditor .ace_marker-layer .ace_selection {
+  background: darken($ace-background, 20%);
 }
