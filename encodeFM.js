@@ -1,4 +1,5 @@
 import { errorMessage, clearErrorMessage } from "./components/errorMessage";
+import JSONEditor from "jsoneditor";
 import preferences, {
   toggleSemicolon,
   toggleVars,
