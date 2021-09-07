@@ -4,7 +4,7 @@ export default function () {
   // init preferences
   //If none exist, create default.
   getFMPreferences();
-  return {};
+  return { semicolonLeading: false, useVars: false };
   // const defaultPrefs = { semicolonLeading: false };
 
   // const preferences =
