@@ -1,3 +1,10 @@
+// ACE styling
+$ace-background: rgb(112, 112, 112);
+$dark-ace: #18171b;
+$text-blue: #8ef7ff;
+$ace-string: rgb(253, 162, 77);
+$number-boolean: rgb(172, 253, 78);
+
 /* dark styling of the editor */
 div.jsoneditor,
 div.jsoneditor-menu {
@@ -8,7 +15,7 @@ div.jsoneditor-menu {
 }
 div.jsoneditor-tree,
 div.jsoneditor textarea.jsoneditor-text {
-  background-color: #666666;
+  background-color: $ace-background;
   color: #ffffff;
 }
 div.jsoneditor-field,
@@ -50,46 +57,47 @@ div.jsoneditor-tree button:focus {
 
 /* coloring of JSON in tree mode */
 div.jsoneditor-readonly {
-  color: #f0f0f0;
+  color: $text-blue;
 }
 div.jsoneditor td.jsoneditor-separator {
   color: #f0f0f0;
 }
 div.jsoneditor-value.jsoneditor-string {
-  color: #00ff88;
+  color: $ace-string;
 }
 div.jsoneditor-value.jsoneditor-object,
 div.jsoneditor-value.jsoneditor-array {
-  color: #f0f0f0;
+  color: lighten($text-blue, 15%);
 }
 div.jsoneditor-value.jsoneditor-number {
-  color: #ff4040;
+  color: $number-boolean;
 }
 div.jsoneditor-value.jsoneditor-boolean {
-  color: #ff8048;
+  color: $number-boolean;
+  font-style: italic;
 }
 div.jsoneditor-value.jsoneditor-null {
-  color: #49a7fc;
+  color: $text-blue;
 }
 div.jsoneditor-value.jsoneditor-invalid {
-  color: white;
+  color: $text-blue;
 }
 
-// ACE styling
+.jsoneditor-navigation-bar {
+  background-color: $ace-background;
+  color: white;
+  border-bottom: 1px solid darken($ace-background, 10%);
+}
 
+div.jsoneditor-tree button.jsoneditor-button:focus {
+  background-color: $dark-ace;
+  outline: $dark-ace solid 1px;
+}
 //
-$ace-background: rgb(97, 97, 97);
-$dark-ace: #18171b;
-$text-blue: #70beeb;
-$number-boolean: rgb(172, 253, 78);
 
 div.ace_scroller,
 div.ace-jsoneditor {
   background-color: $ace-background !important;
-}
-
-.ace_gutter {
-  background-color: lighten($ace-background, 10%) !important;
 }
 
 div.ace_gutter-cell {
@@ -101,7 +109,7 @@ div.ace_gutter-cell {
 }
 
 .ace-jsoneditor .ace_gutter {
-  background: #b62323;
+  background-color: lighten($ace-background, 10%);
   color: #333;
 }
 
@@ -130,7 +138,7 @@ div.ace_gutter-cell {
 }
 
 .ace-jsoneditor .ace_string {
-  color: rgb(245, 141, 43);
+  color: $ace-string;
 }
 .ace-jsoneditor .ace_constant.ace_numeric {
   color: $number-boolean;
@@ -159,7 +167,7 @@ div.jsoneditor th,
 div.jsoneditor-field,
 div.jsoneditor-value,
 pre.jsoneditor-preview {
-  color: white;
+  color: $text-blue;
 }
 .ace-jsoneditor .ace_marker-layer .ace_selection {
   background: darken($ace-background, 20%);
