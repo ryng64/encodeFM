@@ -96,7 +96,6 @@ function copyText() {
 // function saveJSON() {
 //   const json = window.jseditor.get();
 //   if (window.FileMaker) {
-//     debugger;
 //     FileMaker.PerformScript("Save JSON", JSON.stringify(json));
 //   } else {
 //     alert("could not save");
@@ -224,7 +223,6 @@ function createFMJSON(valueList, object) {
         console.log("useVars", obj.key);
         console.log("useVars", obj.key.startsWith("["));
         v = obj.key.startsWith("[") ? obj.key.replace("[", "_") : obj.key;
-        debugger;
         v = v.replaceAll("[", ".").replaceAll("]", "");
         v = `$${v}`;
       }

@@ -4,6 +4,7 @@ export default function () {
   // init preferences
   //If none exist, create default.
   getFMPreferences();
+  return {};
   // const defaultPrefs = { semicolonLeading: false };
 
   // const preferences =
@@ -31,10 +32,13 @@ export function toggleVars(e) {
   FileMaker.PerformScript("SetPreferences", JSON.stringify(window.preferences));
 }
 
-async function getFMPreferences() {
+function getFMPreferences() {
   // FileMaker.PerformScript("GetRequest");
   // console.log("getFMPreferences", fetch);
+  window.preferences = {};
+
   fetch("GetRequest");
+  console.log(window.preferences);
   // window.localStorage.preferences = JSON.stringify(prefs);
   // return prefs
 }
