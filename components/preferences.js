@@ -3,6 +3,7 @@ import { fetch } from "fm-webviewer-fetch";
 export default function () {
   // init preferences
   //If none exist, create default.
+
   getFMPreferences();
   return { semicolonLeading: false, useVars: false };
   // const defaultPrefs = { semicolonLeading: false };
@@ -35,9 +36,9 @@ export function toggleVars(e) {
 function getFMPreferences() {
   // FileMaker.PerformScript("GetRequest");
   // console.log("getFMPreferences", fetch);
-  window.preferences = {};
+  window.preferences = { semicolonLeading: false, useVars: false };
 
-  fetch("GetRequest");
+  FileMaker.PerformScript("GetRequest");
   console.log(window.preferences);
   // window.localStorage.preferences = JSON.stringify(prefs);
   // return prefs
