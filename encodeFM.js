@@ -224,6 +224,7 @@ function createFMJSON(valueList, object) {
         console.log("useVars", obj.key.startsWith("["));
         v = obj.key.startsWith("[") ? obj.key.replace("[", "_") : obj.key;
         v = v.replaceAll("[", ".").replaceAll("]", "");
+        v = v.replaceAll("'", "");
         v = `$${v}`;
       }
 
