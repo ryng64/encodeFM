@@ -1,6 +1,6 @@
 {
   "name": "json-fm-encoder",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "converts JSON into the FileMaker JSONSetElement expression",
   "main": "main.js",
   "scripts": {
@@ -13,10 +13,14 @@
   },
   "keywords": [
     "json",
+    "editor",
+    "translate",
+    "parse",
     "FileMaker",
     "JSONSetElement",
     "function",
     "fm19",
+    "Claris",
     "webviewer"
   ],
   "author": "Ryan Gold",

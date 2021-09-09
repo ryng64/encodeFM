@@ -83,6 +83,10 @@ div.jsoneditor-value.jsoneditor-invalid {
   color: $text-blue;
 }
 
+.jsoneditor-menu a.jsoneditor-poweredBy {
+  display: none;
+}
+
 .jsoneditor-navigation-bar {
   background-color: $ace-background;
   color: white;
