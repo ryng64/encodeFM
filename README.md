@@ -6,10 +6,12 @@ A FileMaker tool to convert JSON syntax into the FileMaker JSONSetElement syntax
 
 ## Translate
 
-Paste in a any JSON formated text and Click Translate
+- Translate : converts JSON contents into JSONSetElement(...) expression
 
-- 'Translate' button in the webviewer performs the main duties of converting the JSON ( all versions of FM that support a webviewer )
-- the Translate at the top of the application makes use of the Perform Javascript in WebViewer step ( FM 19 + )
+### Modes
+
+- $vars : generate variable names based on the Keys of the object.
+- ;\[leading\] : placement of semicolons (;) on the left (leading) or the right (trailing)
 
 ## Development
 
@@ -34,7 +36,7 @@ this may build a lot of files into a `dist/` folder, however the index.html file
 
 ## Plug
 
-check out www.ausom.dev for more information and other tools coming soon!
+check out www.ausom.dev for more information.
 
 ## Samples
 
