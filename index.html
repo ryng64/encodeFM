@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="scss/app.scss" />
+    <link rel="stylesheet" href="scss/jsonedit.css" />
+    <link rel="stylesheet" href="scss/jsoneditor.scss" />
   </head>
   <body>
     <div class="container-fluid">
@@ -83,16 +85,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <div class="input-group">
-            <textarea
-              spellcheck="false"
-              style="height: 75vh"
-              id="input"
-              class="form-control"
-              aria-label="With textarea"
-              placeholder="{...}"
-            ></textarea>
-          </div>
+          <div id="jsoneditor" style="height: 75vh"></div>
         </div>
         <div class="col">
           <div class="input-group">
