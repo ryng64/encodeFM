@@ -32,10 +32,10 @@ export default function init() {
     toggleVars(e);
   };
 
-  // //Save Button
-  // document.getElementById("save").onclick = () => {
-  //   saveJSON();
-  // };
+  //Save Button
+  document.getElementById("save").onclick = () => {
+    saveJSON();
+  };
 
   //Copy button
   document.getElementById("copy").onclick = () => {
@@ -48,6 +48,7 @@ export default function init() {
 window.translate = translate;
 window.fmTranslate = fmTranslate;
 window.flatten = jsonEncodeFM;
+window.getJSON = getJSON;
 
 function setInput(jsonString) {
   const json = JSON.parse(jsonString);
@@ -63,6 +64,11 @@ function fmTranslate(str) {
 function translate() {
   const json = JSON.stringify(window.jseditor.get());
   encodeFM(json);
+}
+
+function getJSON() {
+  const json = JSON.stringify(window.jseditor.get());
+  return json;
 }
 
 function encodeFM(object) {
@@ -93,14 +99,10 @@ function copyText() {
   document.execCommand("copy");
 }
 
-// function saveJSON() {
-//   const json = window.jseditor.get();
-//   if (window.FileMaker) {
-//     FileMaker.PerformScript("Save JSON", JSON.stringify(json));
-//   } else {
-//     alert("could not save");
-//   }
-// }
+function saveJSON() {
+  const json = window.jseditor.get();
+  FileMaker.PerformScript("Save JSON", JSON.stringify(json));
+}
 
 function jsonEncodeFM(object, result = [], parentKey = "") {
   //Check datatype of object passed.
