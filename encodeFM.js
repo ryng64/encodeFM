@@ -222,8 +222,6 @@ function createFMJSON(valueList, object) {
       //example ["layouts"; "Projects"; JSONString]
       //example ["query.activeStatus"; True; JSONBoolean]
       if (useVars) {
-        console.log("useVars", obj.key);
-        console.log("useVars", obj.key.startsWith("["));
         v = obj.key.startsWith("[") ? obj.key.replace("[", "_") : obj.key;
         v = v.replaceAll("[", ".").replaceAll("]", "");
         v = v.replaceAll("'", "");
@@ -231,11 +229,11 @@ function createFMJSON(valueList, object) {
       }
 
       if (leadingSemi) {
-        return `; ["${obj.key}"; ${v}; ${obj.dataType}]`;
+        return `; ["${obj.key}" ; ${v} ; ${obj.dataType}]`;
       } else if (i === arr.length - 1) {
-        return `  ["${obj.key}"; ${v}; ${obj.dataType}]`;
+        return `  ["${obj.key}" ; ${v} ; ${obj.dataType}]`;
       } else {
-        return `  ["${obj.key}"; ${v}; ${obj.dataType}];`;
+        return `  ["${obj.key}" ; ${v} ; ${obj.dataType}];`;
       }
     })
     .join("\r");

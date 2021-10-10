@@ -34,11 +34,9 @@ export function toggleVars(e) {
 
 function getFMPreferences() {
   // FileMaker.PerformScript("GetRequest");
-  // console.log("getFMPreferences", fetch);
   window.preferences = { semicolonLeading: false, useVars: false };
 
   FileMaker.PerformScript("GetRequest");
-  console.log(window.preferences);
   // window.localStorage.preferences = JSON.stringify(prefs);
   // return prefs
 }
