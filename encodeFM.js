@@ -17,6 +17,22 @@ export default function init() {
     modes: ["code", "tree", "form"],
   };
   const editor = new JSONEditor(container, options, "");
+  function fixJSON() {
+    let json = "";
+    try {
+      json = jseditor.get();
+    } catch (error) {
+      json = jseditor.getText();
+    }
+
+    const fixedString = json.replace(
+      /(['"])?([a-z0-9A-Z_]+)(['"])?:/g,
+      '"$2": '
+    );
+    window.jseditor.setText(fixedString);
+  }
+
+  window.fixJSON = fixJSON;
   window.jseditor = editor;
 
   //Translate button
