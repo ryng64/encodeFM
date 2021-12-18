@@ -12,12 +12,33 @@ export default function init() {
   const useVars = document.getElementById("vars");
 
   const container = document.getElementById("jsoneditor");
+
   const options = {
     mode: "code",
     modes: ["code", "tree", "form"],
   };
   const editor = new JSONEditor(container, options, "");
+
+  function fixJSON() {
+    console.log("FIX");
+    // const js = jseditor.get() || jseditor.getText();
+    let json = "";
+    try {
+      json = jseditor.get();
+    } catch (error) {
+      json = jseditor.getText();
+    }
+    console.log("json", json);
+    const fixedString = json.replace(
+      /(['"])?([a-z0-9A-Z_]+)(['"])?:/g,
+      '"$2": '
+    );
+    console.log("fixed", fixedString);
+    window.jseditor.setText(fixedString);
+  }
+
   window.jseditor = editor;
+  window.fixJSON = fixJSON;
 
   //Translate button
   document.getElementById("translate").onclick = () => {
