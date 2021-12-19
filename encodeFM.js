@@ -21,6 +21,7 @@ export default function init() {
     let json = "";
     try {
       json = jseditor.get();
+      return;
     } catch (error) {
       json = jseditor.getText();
     }
@@ -77,6 +78,7 @@ function fmTranslate(str) {
 }
 
 function translate() {
+  fixJSON(json);
   const json = JSON.stringify(window.jseditor.get());
   encodeFM(json);
 }
